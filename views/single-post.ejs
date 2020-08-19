@@ -1,0 +1,26 @@
+<div class="single-post">
+  <div class="single-post-content">
+    <h1><%= post.title %></h1>
+    <p><%= post.body %></p>
+    <a id="return" href="/all-blogs">Return</a>
+  </div>
+  <div class="single-post-header">
+    <a id="delete" data-doc="<%=post._id%>">Delete post</a>
+    <a id="edit" href="/post/edit/<%=post._id%>">Edit post</a>
+  </div>
+</div>
+
+<script>
+  const trash = document.querySelector('#delete');
+
+  trash.addEventListener('click', (e) => {
+    const endPoint = `/post/${trash.dataset.doc}`;
+
+    fetch(endPoint, {
+      method: 'DELETE'
+    })
+      .then(response => response.json())
+      .then(data => window.location.href = data.redirect)
+      .catch(err => console.log(err));
+  });
+</script>

@@ -1,0 +1,19 @@
+<div class="blogs">
+  <div class="blog-header">
+    <h1>All Blogs</h1>
+    <a href="/create-post">Create a post</a>
+  </div>
+  <div class="post-cards">
+    <% posts.forEach(post => { %>
+    <div class="card">
+      <div class="card-header">
+          <h3><%= post.title %></h3>
+          <p><%= post.body %> </p>
+      </div>
+      <div class="card-footer">
+        <a href="/post/<%=post._id%>">See post</a>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>

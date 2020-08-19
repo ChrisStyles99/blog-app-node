@@ -1,0 +1,34 @@
+<div class="edit-post">
+  <form onsubmit="event.preventDefault()">
+    <h1>Edit post</h1>
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" value="<%=post.title%>">
+    <label for="body">Body</label>
+    <textarea name="body" id="body" class="body-textarea" rows="15"><%=post.body%></textarea>
+    <a data-doc="<%=post._id%>" id="edit-btn">Edit post</a>
+  </form>
+</div>
+
+<script>
+  const editBtn = document.querySelector('#edit-btn');
+
+  editBtn.addEventListener('click', () => {
+    const endPoint = `/post/${editBtn.dataset.doc}`
+
+    const bodyData = {
+      title: document.querySelector('#title').value,
+      body: document.querySelector('#body').value
+    }
+
+    fetch(endPoint, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(bodyData)
+    })
+      .then(response => response.json())
+      .then(data => window.location.href = data.redirect)
+      .catch(err => console.log(err));
+  })
+</script>
